@@ -1,0 +1,111 @@
+{
+  "name": "pokedex",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "homepage": "https://github.com/mmastya/pokedex#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmastya/pokedex.git"
+  },
+  "bugs": {
+    "email": "dmitriy@borodin.site",
+    "url": "https://github.com/mmastya/pokedex/issues"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": "",
+  "files": [],
+  "scripts": {
+    "test": "rearguard test",
+    "start": "rearguard start",
+    "build": "rearguard build",
+    "lint": "rearguard lint",
+    "lint-fix": "rearguard lint --fix",
+    "typecheck": "tsc --noEmit",
+    "validate-prettiness": "prettier -c '**/*.{ts,tsx,json,md}'",
+    "validate": "npm run lint && npm run typecheck && npm run validate-prettiness",
+    "make-prettier": "prettier --write '**/*.{ts,tsx,json,md}'",
+    "sync": "rearguard sync"
+  },
+  "types": "",
+  "keywords": [],
+  "engines": {
+    "node": ">=10 <13",
+    "npm": ">=6 <7"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "npm run validate"
+    }
+  },
+  "rearguard": {
+    "webpack": {
+      "context": "src",
+      "dll_entry": "vendors.ts",
+      "entry": "index.tsx",
+      "lib_entry": "export.ts",
+      "modules": [
+        "src"
+      ],
+      "output": {
+        "path": "dist",
+        "publicPath": "/"
+      }
+    },
+    "project": {
+      "runtime": "browser",
+      "type": "app"
+    },
+    "components": [
+      "components"
+    ],
+    "distribution": {
+      "publish_to_docker": false,
+      "docker": {
+        "org_namespace": "org_namespace"
+      }
+    },
+    "configs": {
+      "noOverwriteTSConfig": false,
+      "noOverwriteTSTestConfig": false,
+      "noOverwriteLintConfig": false,
+      "noOverwriteGitIgnore": false
+    },
+    "css": {
+      "postcssPlugins": "postcss.config.js",
+      "useOnlyIsomorphicStyleLoader": false
+    }
+  },
+  "dependencies": {
+    "mobx": "^5.15.0",
+    "mobx-react-lite": "^1.5.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^6.1.3",
+    "@types/prettier": "^1.19.0",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-router": "^5.1.3",
+    "@types/react-router-dom": "^5.1.3",
+    "@typescript-eslint/eslint-plugin": "^2.11.0",
+    "@typescript-eslint/parser": "^2.11.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-react": "^7.17.0",
+    "husky": "^3.1.0",
+    "normalize.css": "^8.0.1",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "typescript": "^3.7.3"
+  }
+}
