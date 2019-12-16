@@ -2,6 +2,7 @@ import { configure } from "mobx";
 import { App } from "pages/App/App";
 import React from "react";
 import ReactDOM from "react-dom";
+import "antd/dist/antd.css";
 
 configure({
   enforceActions: "always",

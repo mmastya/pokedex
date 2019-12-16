@@ -10,6 +10,8 @@ export class PokemonStore {
   @observable results: Pokemon[];
   @observable amount: number;
   @observable offset: number;
+  @observable search: string;
+  @observable selectedTags: string[];
 
   constructor() {
     this.isLoading = false;
@@ -17,10 +19,14 @@ export class PokemonStore {
     this.results = [];
     this.amount = 10;
     this.offset = 0;
+    this.search = "";
+    this.selectedTags = [];
 
     this.init = this.init.bind(this);
     this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
+    this.setSearch = this.setSearch.bind(this);
+    this.setTags = this.setTags.bind(this);
   }
 
   @computed get previous(): string {
@@ -46,6 +52,44 @@ export class PokemonStore {
     }
 
     return `pokemon/?offset=${this.offset}&limit=${this.count}`;
+  }
+
+  @computed get pokemonList(): Pokemon[] {
+    return this.results.filter((pokemon: Pokemon) => {
+      const indexOfBySearch = pokemon.name.indexOf(this.search) !== -1;
+
+      if (this.selectedTags.length > 0) {
+        const findBySelectedTags = pokemon.types.find((type: string) =>
+          this.selectedTags.includes(type),
+        );
+
+        return indexOfBySearch && findBySelectedTags;
+      }
+
+      return indexOfBySearch;
+    });
+  }
+
+  @computed get tags(): string[] {
+    const types: Set<string> = new Set();
+
+    this.results.forEach((pokemon: Pokemon) => {
+      pokemon.types.forEach((type: string) => {
+        types.add(type);
+      });
+    });
+
+    return Array.from(types);
+  }
+
+  @action
+  setSearch(search: string): void {
+    this.search = search;
+  }
+
+  @action
+  setTags(selectedTags: string[]): void {
+    this.selectedTags = selectedTags;
   }
 
   @action

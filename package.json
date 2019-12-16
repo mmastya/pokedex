@@ -82,6 +82,7 @@
     }
   },
   "dependencies": {
+    "antd": "^3.26.3",
     "mobx": "^5.15.0",
     "mobx-react-lite": "^1.5.1",
     "react": "^16.12.0",
