@@ -26,15 +26,34 @@ export class PokemonStore {
   async init(): Promise<void> {
     this.isLoading = true;
 
-    const result = await get("pokemon");
+    const pokemonList = await get("pokemon");
+    console.log(pokemonList);
 
-    if (result) {
+    if (pokemonList) {
       runInAction(() => {
-        this.count = result.count;
-        this.next = result.next;
-        this.previous = result.previous;
-        this.results = result.results;
-        this.isLoading = false;
+        this.count = pokemonList.count;
+        this.next = pokemonList.next;
+        this.previous = pokemonList.previous;
+      });
+
+      const pokemonsData: any[] = await Promise.all(
+        pokemonList.results.map(({ url }) => get(url, true)),
+      );
+      runInAction(() => {
+        this.results = pokemonsData.map(({ id, name, sprites, types, stats }) => {
+          return {
+            id,
+            name,
+            avatar: sprites.front_default,
+            types: types.map(({ type }) => type.name),
+            stats: stats.map(({ base_stat, effort, stat }) => ({
+              base_stat,
+              effort,
+              name: stat.name,
+            })),
+          };
+        });
+        console.log(this.results);
       });
     }
   }

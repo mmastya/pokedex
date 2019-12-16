@@ -22,9 +22,16 @@ export const PokemonListPage = observer(() => {
       <h1>PokemonListPage</h1>
       <div>count: {count}</div>
       <ul>
-        {results.map(({ url, name }) => (
-          <li key={url}>Name: {name}</li>
-        ))}
+        {results.map(({ id, name, avatar, types, stats }) => {
+          return (
+            <li key={id}>
+              <div>Name: {name}</div>
+              <div>
+                Avatar: <img src={avatar}></img>
+              </div>
+            </li>
+          );
+        })}
       </ul>
       {previous ? <button onClick={handlePrevious}>Previous</button> : null}
       {next ? <button onClick={handleNext}>Next</button> : null}
