@@ -3,6 +3,7 @@ import { App } from "pages/App/App";
 import React from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
+import "antd-mobile/dist/antd-mobile.css";
 
 configure({
   enforceActions: "always",

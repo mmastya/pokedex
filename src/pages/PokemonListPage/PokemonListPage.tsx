@@ -1,95 +1,47 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { pokemonStore } from "../../stores/PokemonStore";
-import { Input, Select } from "antd";
-
-const { Option } = Select;
-const { Search } = Input;
+import "../../pages/PokemonListPage/PokemonListPage.css";
+import { SearchBox } from "../../components/SearchBox/SearchBox";
+import { SelectBox } from "../../components/SelectBox/SelectBox";
+import { ButtonsDesktop } from "../../components/Buttons/ButtonsDesktop";
+import { TableBoxDesktop } from "../../components/TableBox/TableBoxDesktop";
+import { ButtonMobile } from "../../components/Buttons/ButtonsMobile";
+import { TableBoxMobile } from "../../components/TableBox/TableBoxMobile";
 
 export const PokemonListPage = observer(() => {
-  const {
-    init,
-    count,
-    pokemonList,
-    next,
-    previous,
-    nextPage,
-    previousPage,
-    amount,
-    search,
-    setSearch,
-    setTags,
-    tags,
-    selectedTags,
-  } = pokemonStore;
+  const { init, count, amount } = pokemonStore;
 
-  const handleNext = useCallback((): void => {
-    nextPage();
-  }, []);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const resizeWindow = (): void => {
+    setWindowWidth(window.innerWidth);
+  };
 
-  const handlePrevious = useCallback((): void => {
-    previousPage();
+  useEffect(() => {
+    resizeWindow();
+    window.addEventListener("resize", resizeWindow);
+    return (): void => window.removeEventListener("resize", resizeWindow);
   }, []);
 
   useEffect(() => {
     init(amount);
   }, []);
 
-  const handleAmountFifty = (): void => {
-    init(50);
-  };
-
-  const handleAmountTwenty = (): void => {
-    init(20);
-  };
-
-  const handleAmountTen = (): void => {
-    init(10);
-  };
-
   return (
-    <div>
-      <h1>PokemonListPage</h1>
-      <div>count: {count}</div>
-      <Search
-        placeholder="please input Pokemon name"
-        onChange={(event): void => setSearch(event.target.value)}
-        allowClear={true}
-        value={search}
-      />
-      <Select
-        mode="multiple"
-        style={{ width: "100%" }}
-        placeholder="Please select"
-        value={selectedTags}
-        onChange={setTags}
-      >
-        {tags.map((tag) => (
-          <Option value={tag} key={tag}>
-            {tag}
-          </Option>
-        ))}
-      </Select>
-      <button onClick={handleAmountTen}>10</button>
-      <button onClick={handleAmountTwenty}>20</button>
-      <button onClick={handleAmountFifty}>50</button>
-      <ul>
-        {pokemonList.map(({ id, name, avatar }) => {
-          return (
-            <li key={id}>
-              <div>
-                Name: {name}
-                ID: {id}
-              </div>
-              <div>
-                Avatar: <img src={avatar}></img>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-      {previous ? <button onClick={handlePrevious}>Previous</button> : null}
-      {next ? <button onClick={handleNext}>Next</button> : null}
+    <div className={"main-block"}>
+      <h1 className={"main-block__title"}>Pokedex</h1>
+      <p className={"main-block__count "}>Count: {count}</p>
+      <div className={"search-box"}>
+        <SearchBox />
+      </div>
+      <div className={"search-box"}>
+        <SelectBox />
+      </div>
+      <div>{windowWidth < 700 ? <ButtonMobile /> : <ButtonsDesktop />}</div>
+      <div className={"table-box"}>
+        {windowWidth < 700 ? <TableBoxMobile /> : <TableBoxDesktop />}
+      </div>
+      <div>{windowWidth < 700 ? <ButtonMobile /> : <ButtonsDesktop />}</div>
     </div>
   );
 });
