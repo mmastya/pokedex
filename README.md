@@ -10,22 +10,10 @@ A simple application with the list of pokemons.
 npm i -g rearguard
 ```
 
-### Склонируй репозиторий
-
-```
-git clone git@github.com:mmastya/food-controler.git
-```
-
 ### Установите модули
 
 ```
 npm i
-```
-
-### Выполните
-
-```
-npm run boostrap
 ```
 
 ### Запустите
