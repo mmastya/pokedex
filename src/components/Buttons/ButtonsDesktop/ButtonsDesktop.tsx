@@ -42,6 +42,7 @@ export const ButtonsDesktop = observer(() => {
 
   return (
     <ul className="button-list">
+      <li></li>
       <li className="button-list__item">
         {previous ? (
           <Button type="primary" onClick={handlePrevious} loading={isLoading}>
