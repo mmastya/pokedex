@@ -5,7 +5,7 @@ import { Button as ButtonMob } from "antd-mobile";
 import "./ButtonsMobile.css";
 
 export const ButtonMobile = observer(() => {
-  const { init, next, previous, nextPage, previousPage, amount } = pokemonStore;
+  const { init, next, previous, nextPage, previousPage, amount, isLoading } = pokemonStore;
 
   const handleNext = useCallback((): void => {
     nextPage();
@@ -36,26 +36,32 @@ export const ButtonMobile = observer(() => {
       <ul className="button-list-mobile">
         <li className="button-list-mobile__item">
           {previous ? (
-            <ButtonMob type="primary" onClick={handlePrevious}>
+            <ButtonMob type="primary" onClick={handlePrevious} loading={isLoading}>
               Previous
             </ButtonMob>
           ) : null}
         </li>
         <li className="button-list-mobile__item">
           {next ? (
-            <ButtonMob type="primary" onClick={handleNext}>
+            <ButtonMob type="primary" onClick={handleNext} loading={isLoading}>
               Next
             </ButtonMob>
           ) : null}
         </li>
         <li className="button-list-mobile__item">
-          <ButtonMob onClick={handleAmountTen}>10</ButtonMob>
+          <ButtonMob type={amount === 10 ? "primary" : "ghost"} onClick={handleAmountTen}>
+            10
+          </ButtonMob>
         </li>
         <li className="button-list-mobile__item">
-          <ButtonMob onClick={handleAmountTwenty}>20</ButtonMob>
+          <ButtonMob type={amount === 20 ? "primary" : "ghost"} onClick={handleAmountTwenty}>
+            20
+          </ButtonMob>
         </li>
         <li className="button-list-mobile__item">
-          <ButtonMob onClick={handleAmountFifty}>50</ButtonMob>
+          <ButtonMob type={amount === 50 ? "primary" : "ghost"} onClick={handleAmountFifty}>
+            50
+          </ButtonMob>
         </li>
       </ul>
     </div>

@@ -54,7 +54,7 @@
       ],
       "output": {
         "path": "dist",
-        "publicPath": "/"
+        "publicPath": "/pokedex.github.io"
       }
     },
     "project": {
