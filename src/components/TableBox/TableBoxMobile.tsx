@@ -17,9 +17,9 @@ export const TableBoxMobile = observer(() => {
   }, []);
 
   return (
-    <div className={"table-box"}>
+    <div>
       {pokemonList.map(({ id, name, avatar, types, stats }) => (
-        <div key={id} className={"card"}>
+        <div key={id} className="card-box">
           <Card>
             <Card.Header title={name} thumb={avatar} extra={id} />
             <Card.Body>
@@ -41,7 +41,7 @@ export const TableBoxMobile = observer(() => {
             <Card.Footer
               content="types"
               extra={
-                <div className={"tagMobile"}>
+                <div className="card-box__tag">
                   {types.map((type) => (
                     <Tag key={type}>{type}</Tag>
                   ))}

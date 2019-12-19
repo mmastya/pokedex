@@ -1,47 +1,17 @@
-.pokemon-list {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-}
-
-.pokemon-list__item:not(:first-child) {
-  margin-left: 10px;
-}
-
 .main-block {
   width: auto;
   min-width: 250px;
   margin: 25px;
 }
 
-.search-box {
+.main-block__search-box {
   margin: 15px 0;
 }
 
-.table-box {
+.main-block__select-box {
+  margin: 15px 0;
+}
+
+.main-block__table-box {
   margin: 30px 0;
-}
-
-.table {
-  margin-bottom: 30px;
-}
-
-.button-list {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.button-list__item:not(:first-child) {
-  margin-left: 15px;
-}
-
-.button-list--mobile {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.button-list__item--mobile {
-  margin: 10px 0;
 }

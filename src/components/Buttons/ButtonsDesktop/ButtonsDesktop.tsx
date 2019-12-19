@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from "react";
 import { observer } from "mobx-react-lite";
-import { pokemonStore } from "../../stores/PokemonStore";
+import { pokemonStore } from "../../../stores/PokemonStore";
 import { Button } from "antd";
-import "../../pages/PokemonListPage/PokemonListPage.css";
+import "./ButtonsDesktop.css";
 
 export const ButtonsDesktop = observer(() => {
   const { init, next, previous, nextPage, previousPage, amount } = pokemonStore;
@@ -32,28 +32,28 @@ export const ButtonsDesktop = observer(() => {
   };
 
   return (
-    <ul className={"button-list"}>
-      <li className={"button-list__item"}>
+    <ul className="button-list">
+      <li className="button-list__item">
         {previous ? (
           <Button type="primary" onClick={handlePrevious}>
             Previous
           </Button>
         ) : null}
       </li>
-      <li className={"button-list__item"}>
+      <li className="button-list__item">
         {next ? (
           <Button type="primary" onClick={handleNext}>
             Next
           </Button>
         ) : null}
       </li>
-      <li className={"button-list__item"}>
+      <li className="button-list__item">
         <Button onClick={handleAmountTen}>10</Button>
       </li>
-      <li className={"button-list__item"}>
+      <li className="button-list__item">
         <Button onClick={handleAmountTwenty}>20</Button>
       </li>
-      <li className={"button-list__item"}>
+      <li className="button-list__item">
         <Button onClick={handleAmountFifty}>50</Button>
       </li>
     </ul>

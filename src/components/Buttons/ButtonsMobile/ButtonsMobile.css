@@ -1,0 +1,9 @@
+.button-list-mobile {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.button-list-mobile__item {
+  margin: 10px 0;
+}

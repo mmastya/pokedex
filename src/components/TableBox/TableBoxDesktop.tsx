@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { pokemonStore } from "../../stores/PokemonStore";
 import { Table } from "antd";
-import "../../pages/PokemonListPage/PokemonListPage.css";
 import { Tag } from "../../components/Tag/Tag";
 
 const { Column } = Table;
