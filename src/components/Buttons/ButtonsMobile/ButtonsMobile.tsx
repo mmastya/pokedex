@@ -5,7 +5,16 @@ import { Button as ButtonMob } from "antd-mobile";
 import "./ButtonsMobile.css";
 
 export const ButtonMobile = observer(() => {
-  const { init, next, previous, nextPage, previousPage, amount, isLoading } = pokemonStore;
+  const {
+    init,
+    next,
+    previous,
+    nextPage,
+    previousPage,
+    amount,
+    isLoading,
+    setAmount,
+  } = pokemonStore;
 
   const handleNext = useCallback((): void => {
     nextPage();
@@ -20,15 +29,15 @@ export const ButtonMobile = observer(() => {
   }, []);
 
   const handleAmountFifty = (): void => {
-    init(50);
+    setAmount(50);
   };
 
   const handleAmountTwenty = (): void => {
-    init(20);
+    setAmount(20);
   };
 
   const handleAmountTen = (): void => {
-    init(10);
+    setAmount(10);
   };
 
   return (
