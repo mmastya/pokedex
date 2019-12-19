@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 const { Search } = Input;
 
 export const SearchBox = observer(() => {
-  const { search, setSearch } = pokemonStore;
+  const { search, setSearch, isLoading } = pokemonStore;
 
   return (
     <Search
@@ -14,6 +14,7 @@ export const SearchBox = observer(() => {
       onChange={(event): void => setSearch(event.target.value)}
       allowClear={true}
       value={search}
+      disabled={isLoading}
     />
   );
 });

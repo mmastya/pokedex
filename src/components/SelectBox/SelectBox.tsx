@@ -6,7 +6,7 @@ import { Select } from "antd";
 const { Option } = Select;
 
 export const SelectBox = observer(() => {
-  const { setTags, tags, selectedTags } = pokemonStore;
+  const { setTags, tags, selectedTags, isLoading } = pokemonStore;
 
   return (
     <Select
@@ -15,6 +15,7 @@ export const SelectBox = observer(() => {
       placeholder="Please select"
       value={selectedTags}
       onChange={setTags}
+      disabled={isLoading}
     >
       {tags.map((tag) => (
         <Option value={tag} key={tag}>

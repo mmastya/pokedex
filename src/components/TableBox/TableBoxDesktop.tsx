@@ -21,6 +21,7 @@ export const TableBoxDesktop = observer(() => {
         pagination={false}
         size="small"
       >
+        <Column title="ID" dataIndex="id" align="left" />
         <Column
           title="Avatar"
           dataIndex="avatar"
