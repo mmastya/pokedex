@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { pokemonStore } from "../../stores/PokemonStore";
-import { Table, Tag } from "antd";
+import { Table } from "antd";
 import "../../pages/PokemonListPage/PokemonListPage.css";
+import { Tag } from "../../components/Tag/Tag";
 
 const { Column } = Table;
 
@@ -40,9 +41,7 @@ export const TableBoxDesktop = observer(() => {
             return (
               <div>
                 {types.map((type) => (
-                  <Tag key={type} color="gold">
-                    {type}
-                  </Tag>
+                  <Tag key={type}>{type}</Tag>
                 ))}
               </div>
             );
