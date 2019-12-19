@@ -27,6 +27,7 @@ export class PokemonStore {
     this.previousPage = this.previousPage.bind(this);
     this.setSearch = this.setSearch.bind(this);
     this.setTags = this.setTags.bind(this);
+    this.setAmount = this.setAmount.bind(this);
   }
 
   @computed get previous(): string {
