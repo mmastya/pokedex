@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
 import { pokemonStore } from "../../stores/PokemonStore";
 import { Table } from "antd";
@@ -10,11 +10,7 @@ import "./TableBoxMobile.css";
 const { Column } = Table;
 
 export const TableBoxMobile = observer(() => {
-  const { fetchPokemons, pokemonList } = pokemonStore;
-
-  useEffect(() => {
-    fetchPokemons();
-  }, []);
+  const { pokemonList } = pokemonStore;
 
   return (
     <div>

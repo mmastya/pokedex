@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
 import { pokemonStore } from "../../stores/PokemonStore";
 import { Table } from "antd";
@@ -7,11 +7,7 @@ import { Tag } from "../../components/Tag/Tag";
 const { Column } = Table;
 
 export const TableBoxDesktop = observer(() => {
-  const { fetchPokemons, pokemonList } = pokemonStore;
-
-  useEffect(() => {
-    fetchPokemons();
-  }, []);
+  const { pokemonList } = pokemonStore;
 
   return (
     <div>
