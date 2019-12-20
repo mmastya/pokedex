@@ -10,10 +10,10 @@ import "./TableBoxMobile.css";
 const { Column } = Table;
 
 export const TableBoxMobile = observer(() => {
-  const { init, pokemonList, amount } = pokemonStore;
+  const { fetchPokemons, pokemonList } = pokemonStore;
 
   useEffect(() => {
-    init(amount);
+    fetchPokemons();
   }, []);
 
   return (

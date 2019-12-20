@@ -4,13 +4,12 @@ import { pokemonStore } from "../../stores/PokemonStore";
 import "../../pages/PokemonListPage/PokemonListPage.css";
 import { SearchBox } from "../../components/SearchBox/SearchBox";
 import { SelectBox } from "../../components/SelectBox/SelectBox";
-import { ButtonsDesktop } from "../../components/Buttons/ButtonsDesktop/ButtonsDesktop";
 import { TableBoxDesktop } from "../../components/TableBox/TableBoxDesktop";
-import { ButtonMobile } from "../../components/Buttons/ButtonsMobile/ButtonsMobile";
 import { TableBoxMobile } from "../../components/TableBox/TableBoxMobile";
+import { Pagination } from "antd";
 
 export const PokemonListPage = observer(() => {
-  const { init, count, amount } = pokemonStore;
+  const { fetchPokemons, pokemonCount, isLoading } = pokemonStore;
 
   const [windowWidth, setWindowWidth] = useState(0);
   const resizeWindow = (): void => {
@@ -24,24 +23,33 @@ export const PokemonListPage = observer(() => {
   }, []);
 
   useEffect(() => {
-    init(amount);
+    fetchPokemons();
   }, []);
 
   return (
     <div className="main-block">
       <h1>Pokedex</h1>
-      <p>Count: {count}</p>
+      <p>Count: {pokemonCount}</p>
       <div className="main-block__search-box">
         <SearchBox />
       </div>
       <div className="main-block__select-box">
         <SelectBox />
       </div>
-      <div>{windowWidth < 700 ? <ButtonMobile /> : <ButtonsDesktop />}</div>
+      <div>
+        <Pagination
+          showSizeChanger
+          onShowSizeChange={fetchPokemons}
+          onChange={fetchPokemons}
+          defaultCurrent={1}
+          total={pokemonCount}
+          pageSizeOptions={["10", "20", "50"]}
+          disabled={isLoading}
+        />
+      </div>
       <div className="main-block__table-box">
         {windowWidth < 700 ? <TableBoxMobile /> : <TableBoxDesktop />}
       </div>
-      <div>{windowWidth < 700 ? <ButtonMobile /> : <ButtonsDesktop />}</div>
     </div>
   );
 });

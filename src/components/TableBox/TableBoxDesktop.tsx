@@ -7,10 +7,10 @@ import { Tag } from "../../components/Tag/Tag";
 const { Column } = Table;
 
 export const TableBoxDesktop = observer(() => {
-  const { init, pokemonList, amount } = pokemonStore;
+  const { fetchPokemons, pokemonList } = pokemonStore;
 
   useEffect(() => {
-    init(amount);
+    fetchPokemons();
   }, []);
 
   return (
