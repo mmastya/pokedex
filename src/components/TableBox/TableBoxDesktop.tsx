@@ -7,12 +7,14 @@ import { Tag } from "../../components/Tag/Tag";
 const { Column } = Table;
 
 export const TableBoxDesktop = observer(() => {
-  const { pokemonList } = pokemonStore;
+  const { pokemonList, pageNumber, pageSize, isFiltered } = pokemonStore;
+  const start = (pageNumber - 1) * pageSize;
+  const end = start + pageSize;
 
   return (
     <div>
       <Table
-        dataSource={pokemonList}
+        dataSource={isFiltered ? pokemonList.slice(start, end) : pokemonList}
         rowKey={(pokemonList, index): string => `${index}`}
         pagination={false}
         size="small"

@@ -8,10 +8,12 @@ const cache = new Map();
 export class PokemonStore {
   @observable isLoading: boolean;
   @observable results: Pokemon[];
-  @observable search: string;
-  @observable selectedTags: string[];
+  @observable search: string; // filter for name
+  @observable selectedTags: string[]; //filter for tags
+  @observable pageNumber: number;
+  @observable pageSize: number;
 
-  @observable private count: number;
+  @observable private count: number; // all elements
 
   constructor() {
     this.isLoading = false;
@@ -19,14 +21,16 @@ export class PokemonStore {
     this.results = [];
     this.search = "";
     this.selectedTags = [];
+    this.pageNumber = 1;
+    this.pageSize = 10;
 
     this.fetchPokemons = this.fetchPokemons.bind(this);
     this.setSearch = this.setSearch.bind(this);
     this.setTags = this.setTags.bind(this);
   }
-
+  // count depend on filter
   @computed get pokemonCount(): number {
-    if (this.search !== "" || this.selectedTags.length > 0) {
+    if (this.isFiltered) {
       return this.pokemonList.length;
     }
 
@@ -34,9 +38,9 @@ export class PokemonStore {
   }
 
   @computed get pokemonList(): Pokemon[] {
-    let pokemons: Pokemon[] = this.results;
+    let pokemons: Pokemon[] = this.results; //pokemons = all array with pokemons
 
-    if (this.search !== "" || this.selectedTags.length > 0) {
+    if (this.isFiltered) {
       pokemons = Array.from(cache.values()).map(this.pokemonParse);
     }
 
@@ -55,6 +59,10 @@ export class PokemonStore {
     });
   }
 
+  @computed get isFiltered(): boolean {
+    return this.search !== "" || this.selectedTags.length > 0;
+  }
+
   @computed get tags(): string[] {
     const types: Set<string> = new Set();
 
@@ -70,15 +78,24 @@ export class PokemonStore {
   @action
   setSearch(search: string): void {
     this.search = search;
+    this.pageNumber = 1;
   }
 
   @action
   setTags(selectedTags: string[]): void {
     this.selectedTags = selectedTags;
+    this.pageNumber = 1;
   }
 
   @action
   async fetchPokemons(pageNumber = 1, pageSize = 10): Promise<void> {
+    this.pageNumber = pageNumber;
+    this.pageSize = pageSize;
+
+    if (this.isFiltered) {
+      return;
+    }
+
     this.isLoading = true;
 
     const pokemonList = await get(
@@ -104,8 +121,6 @@ export class PokemonStore {
         this.count = pokemonList.count;
         this.results = originPokemons.map(this.pokemonParse);
         this.isLoading = false;
-
-        console.log(this.results);
       });
     }
   }
