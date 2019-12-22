@@ -14,7 +14,7 @@ export const Tag = (props): JSX.Element => {
     colors.set(props.children, color.hexString());
   }
   return (
-    <span style={{ backgroundColor: currentColor, color: "black" }} className={"tag"}>
+    <span style={{ backgroundColor: currentColor, color: "black" }} className="tag">
       {props.children}
     </span>
   );

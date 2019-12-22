@@ -10,43 +10,81 @@ import "./TableBoxMobile.css";
 const { Column } = Table;
 
 export const TableBoxMobile = observer(() => {
-  const { pokemonList } = pokemonStore;
+  const { pokemonList, pageNumber, pageSize, isFiltered } = pokemonStore;
+  const start = (pageNumber - 1) * pageSize;
+  const end = start + pageSize;
 
   return (
     <div>
-      {pokemonList.map(({ id, name, avatar, types, stats }) => (
-        <div key={id} className="card-box">
-          <Card>
-            <Card.Header title={name} thumb={avatar} extra={id} />
-            <Card.Body>
-              <div>
-                <Table
-                  dataSource={stats}
-                  pagination={false}
-                  bordered
-                  size="small"
-                  tableLayout="auto"
-                  rowKey={(pokemonList, index): string => `${index}`}
-                >
-                  <Column title="Name" dataIndex="name" key="name" />
-                  <Column title="Effort" dataIndex="effort" key="effort" />
-                  <Column title="Base stat" dataIndex="base_stat" key="base_stat" />
-                </Table>
+      {isFiltered
+        ? pokemonList
+            .map(({ id, name, avatar, types, stats }) => (
+              <div key={id} className="card-box">
+                <Card>
+                  <Card.Header title={name} thumb={avatar} extra={id} />
+                  <Card.Body>
+                    <div>
+                      <Table
+                        dataSource={stats}
+                        pagination={false}
+                        bordered
+                        size="small"
+                        tableLayout="auto"
+                        rowKey={(pokemonList, index): string => `${index}`}
+                      >
+                        <Column title="Name" dataIndex="name" key="name" />
+                        <Column title="Effort" dataIndex="effort" key="effort" />
+                        <Column title="Base stat" dataIndex="base_stat" key="base_stat" />
+                      </Table>
+                    </div>
+                  </Card.Body>
+                  <Card.Footer
+                    content="types"
+                    extra={
+                      <div className="card-box__tag">
+                        {types.map((type) => (
+                          <Tag key={type}>{type}</Tag>
+                        ))}
+                      </div>
+                    }
+                  />
+                </Card>
               </div>
-            </Card.Body>
-            <Card.Footer
-              content="types"
-              extra={
-                <div className="card-box__tag">
-                  {types.map((type) => (
-                    <Tag key={type}>{type}</Tag>
-                  ))}
-                </div>
-              }
-            />
-          </Card>
-        </div>
-      ))}
+            ))
+            .slice(start, end)
+        : pokemonList.map(({ id, name, avatar, types, stats }) => (
+            <div key={id} className="card-box">
+              <Card>
+                <Card.Header title={name} thumb={avatar} extra={id} />
+                <Card.Body>
+                  <div>
+                    <Table
+                      dataSource={stats}
+                      pagination={false}
+                      bordered
+                      size="small"
+                      tableLayout="auto"
+                      rowKey={(pokemonList, index): string => `${index}`}
+                    >
+                      <Column title="Name" dataIndex="name" key="name" />
+                      <Column title="Effort" dataIndex="effort" key="effort" />
+                      <Column title="Base stat" dataIndex="base_stat" key="base_stat" />
+                    </Table>
+                  </div>
+                </Card.Body>
+                <Card.Footer
+                  content="types"
+                  extra={
+                    <div className="card-box__tag">
+                      {types.map((type) => (
+                        <Tag key={type}>{type}</Tag>
+                      ))}
+                    </div>
+                  }
+                />
+              </Card>
+            </div>
+          ))}
     </div>
   );
 });
